@@ -13,7 +13,7 @@ def citire_lista():
     :return: lista citita
     '''
 
-    lst =[]
+    lst = []
     givenString = input("Introduceti elementele listei insirate prin virgula: ")
     numbersAsStrig = givenString.split(",")
 
@@ -35,80 +35,118 @@ def is_prime(x):
             break
     return True
 
+
 def test_is_prime():
     assert is_prime(7) == True
     assert is_prime(22) == False
     assert is_prime(1) == False
 
-def afisare_lista_fara_el_prime(lst):
 
-    rezultat=[]
+def afisare_lista_fara_el_prime(lst):
+    '''
+    afisam lista din care se elimina elementele care sunt prime
+    :param lst: lista initiala
+    :return: o noua lista cu propietatea data
+    '''
+
+    rezultat = []
     for i in lst:
         if is_prime(int(i)) == False:
             rezultat.append(i)
     return rezultat
 
+
 def test_afisare_lista_fara_el_prime():
     assert afisare_lista_fara_el_prime([8, 19, 17, 25]) == [8, 25]
+    assert afisare_lista_fara_el_prime([12, 5, 7, 22]) == [12, 22]
+    assert afisare_lista_fara_el_prime([121, 12, 14, 15]) == [121, 12, 14, 15]
 
 
-def medie_aritmetica_numere(lst,n):
+def medie_aritmetica_numere(lst, n):
+    '''
+    verificam daca media aritmetica a numerelor din lista e mai mare decat un numar n dat
+    :param lst: lista data
+    :param n: numarul cu care comparam
+    :return: valoarea de adevar (True/False)
+    '''
 
-    suma= sum(lst)
-    if int(suma/len(lst)) > int(n):
+    suma = sum(lst)
+    if int(suma / len(lst)) > int(n):
         return True
     else:
         return False
 
+
 def test_medie_aritmetica_numere():
-    assert medie_aritmetica_numere([10, -3, 25, -1, 3, 25, 18],10) == True
-    assert medie_aritmetica_numere([1, 2, 3 ,4],3) == False
-    assert medie_aritmetica_numere([10, -2, -6 , 22],4) == True
+    assert medie_aritmetica_numere([10, -3, 25, -1, 3, 25, 18], 10) == True
+    assert medie_aritmetica_numere([1, 2, 3, 4], 3) == False
+    assert medie_aritmetica_numere([10, -2, -6, 22], 4) == True
+
 
 def numar_div_proprii(x):
+    '''
+    numaram divizorii propri a unui numar
+    :param x: numarul dat
+    :return: numarul de divizori propri
+    '''
 
-     count=0
-     for i in range(2,x//2+1):
-         if x%i==0:
-             count=count+1
-     return count
+    count = 0
+    for i in range(2, x // 2 + 1):
+        if x % i == 0:
+            count = count + 1
+    return count
+
 
 def test_numar_div_proprii():
     assert numar_div_proprii(12) == 4
     assert numar_div_proprii(15) == 2
     assert numar_div_proprii(11) == 0
 
-def main():
 
+def adaugare_divizori_proprii_in_lista(lst):
+    '''
+    adaugam divizorii propri in lista data
+    :param lst: lista initiala
+    :return: o noua lista cu propietatea ceruta
+    '''
+    rezultat = []
+    for i in lst:
+        rezultat.append(i)
+        rezultat.append(numar_div_proprii(i))
+    return rezultat
+
+
+
+
+
+def main():
     test_is_prime()
     test_afisare_lista_fara_el_prime()
     test_medie_aritmetica_numere()
     test_numar_div_proprii()
-    l=[]
+    l = []
     printMenu()
-
 
     while True:
         optiune = input("Alegeti optiunea dorita: ")
         if optiune == "1":
-            l=citire_lista()
+            l = citire_lista()
         elif optiune == "2":
             print(afisare_lista_fara_el_prime(l))
         elif optiune == "3":
-             n=input("Introduceti numarul pentru a verifica daca media aritmetica este mai  mare ca aceasta: ")
-             if medie_aritmetica_numere(l,n) == True:
-                 print("DA")
-             else:
-                 print("NU")
+            n = input("Introduceti numarul pentru a verifica daca media aritmetica este mai  mare ca aceasta: ")
+            if medie_aritmetica_numere(l, n) == True:
+                print("DA")
+            else:
+                print("NU")
         elif optiune == "4":
-            print("functia 3")
+            print(adaugare_divizori_proprii_in_lista(l))
         elif optiune == "5":
-            print("functia 4")
+            print()
         elif optiune == "x":
             break
         else:
             print("Optiunea introdusa nu este una valida")
-
 
 
 main()

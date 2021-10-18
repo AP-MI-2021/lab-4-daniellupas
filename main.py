@@ -3,7 +3,7 @@ def printMenu():
     print("2.Afișarea listei după eliminarea numerelor prime din listă")
     print("3.Să se afișeze dacă media aritmetică a numerelor este mai mare decât un număr n dat.")
     print("4.Afișarea listei obținută prin adăugarea după fiecare element numărul de divizori proprii ai elementului.")
-    print("5.Cerinta 4")
+    print("5.Afisarea listei in care fiecare element e inlocuit cu un tuplu cu propietatea data")
     print("x.Iesi din program")
 
 
@@ -116,7 +116,30 @@ def adaugare_divizori_proprii_in_lista(lst):
     return rezultat
 
 
+def lista_tuplu(lst):
+    '''
+    creem tupl-uri care sa respecte propietatea ceruta si mai tarziu le afisam
+    :param lst: lista initiala
+    :return: o lista finala cu propietatea ceruta
+    '''
 
+    rezultat = []
+    list_1 = []
+    list_2 = []
+    final = []
+    for i in range(len(lst) + 1):
+        list_1.append(i.__index__())
+    for j in lst:
+        list_2.append(lst.count(j))
+    rezultat = list(zip(lst, list_1, list_2))
+
+    return rezultat
+
+
+def test_lista_tuplu():
+    assert lista_tuplu([25, 13, 26, 13]) == [(25, 0, 1), (13, 1, 2), (26, 2, 1), (13, 3, 2)]
+    assert lista_tuplu([5, 1, 12, 2]) == [(5, 0, 1), (1, 1, 1), (12, 2, 1), (2, 3, 1)]
+    assert lista_tuplu([12, 2, 3, 2]) == [(12, 0, 1), (2, 1, 2), (3, 2, 1), (2, 3, 2)]
 
 
 def main():
@@ -124,6 +147,7 @@ def main():
     test_afisare_lista_fara_el_prime()
     test_medie_aritmetica_numere()
     test_numar_div_proprii()
+    test_lista_tuplu()
     l = []
     printMenu()
 
@@ -142,7 +166,7 @@ def main():
         elif optiune == "4":
             print(adaugare_divizori_proprii_in_lista(l))
         elif optiune == "5":
-            print()
+            print(lista_tuplu(l))
         elif optiune == "x":
             break
         else:
